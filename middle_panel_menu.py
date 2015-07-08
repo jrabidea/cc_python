@@ -29,17 +29,23 @@ class Menu(BasePageObject):
         self.find_element(self.menu_close).click()
 
     def import_save(self):
-        import_save = By.XPATH, "//a[@onclick = 'Game.ImportSave();']"
-        load_button = By.ID, "promptOption0"
-        self.find_element(self.menu).click()
-        self.wait(self.menu_close, 20)
-        self.find_element(import_save).click()
-        self.wait(self.text_area, 20)
-        with open("Cookie_Clicker.txt", "r") as load:
-            code = load.read()
-        self.find_element(self.text_area).send_keys(code)
-        self.find_element(load_button).click()
-        self.find_element(self.menu_close).click()
+
+        try:
+            import_save = By.XPATH, "//a[@onclick = 'Game.ImportSave();']"
+            load_button = By.ID, "promptOption0"
+            nevermind_button = By.ID, "promptOption1"
+            self.find_element(self.menu).click()
+            self.wait(self.menu_close, 20)
+            self.find_element(import_save).click()
+            self.wait(self.text_area, 20)
+            with open("Cookie_Clicker.txt", "r") as load:
+                code = load.read()
+            self.find_element(self.text_area).send_keys(code)
+            self.find_element(load_button).click()
+            self.find_element(self.menu_close).click()
+        except IOError:
+            self.find_element(nevermind_button).click()
+            self.find_element(self.menu_close).click()
 
     def turn_off_graphics(self):
         fancy_graphics = By.ID, "fancyButton"

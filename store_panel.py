@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 
 from base_page_object import *
 
+from selenium.common.exceptions import NoSuchElementException
+
 class StoreUpgrades(BasePageObject):
 
     enabled = "product unlocked enabled"
@@ -78,10 +80,13 @@ class StoreUpgrades(BasePageObject):
 
     def buy_store_upgrade(self):
 
-        store_upgrade = By.ID, "upgrade0"
+        try:
+            store_upgrade = By.ID, "upgrade0"
 
-        if self.find_element(store_upgrade).get_attribute("className") == self.crate_enabled:
-            self.find_element(store_upgrade).click()
+            if self.find_element(store_upgrade).get_attribute("className") == self.crate_enabled:
+                self.find_element(store_upgrade).click()
+        except NoSuchElementException:
+            pass
 
 
     def set_limit(self, total_products):
