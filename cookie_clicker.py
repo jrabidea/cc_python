@@ -42,6 +42,7 @@ class CookieClicker(unittest.TestCase):
             store.buy_products()
             store.buy_store_upgrade()
             mid_pane.close_notifications()
+            mid_pane.click_golden_cookie()
 
     def tearDown(self):
         self.driver.quit()

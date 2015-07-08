@@ -3,6 +3,7 @@ __author__ = 'jrabidea'
 from base_page_object import *
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import ElementNotVisibleException
 
 class Menu(BasePageObject):
 
@@ -58,6 +59,14 @@ class Menu(BasePageObject):
             close_notes = By.XPATH, "//*[@onclick = 'Game.CloseNotes();']"
             self.find_element(close_notes).click()
         except NoSuchElementException, a:
+            pass
+
+    def click_golden_cookie(self):
+
+        try:
+            golden_cookie = By.ID, "goldenCookie"
+            self.find_element(golden_cookie).click()
+        except ElementNotVisibleException, f:
             pass
 
 
