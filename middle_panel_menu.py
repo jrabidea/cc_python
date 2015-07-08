@@ -2,6 +2,7 @@ __author__ = 'jrabidea'
 
 from base_page_object import *
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 class Menu(BasePageObject):
 
@@ -50,6 +51,16 @@ class Menu(BasePageObject):
         for d in settings:
             self.find_element(d).click()
         self.find_element(self.menu_close).click()
+
+    def close_notifications(self):
+
+        try:
+            close_notes = By.XPATH, "//*[@onclick = 'Game.CloseNotes();']"
+            self.find_element(close_notes).click()
+        except NoSuchElementException, a:
+            pass
+
+
 
 
 

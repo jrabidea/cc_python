@@ -5,6 +5,8 @@ import datetime
 from selenium import webdriver
 from cookie_panel import *
 from middle_panel_menu import *
+from store_panel import *
+
 
 
 
@@ -22,14 +24,13 @@ class CookieClicker(unittest.TestCase):
         if elapsed_time > 60:
             self.minutes += 1
             self.start_time = time.time()
-        print elapsed_time
-        print self.minutes
 
     def test_play_cookie_clicker(self):
         driver = self.driver
         driver.get(self.base_url)
         cookie_pane = CookiePanel(driver)
         mid_pane = Menu(driver)
+        store = StoreUpgrades(driver)
         mid_pane.turn_off_graphics()
         mid_pane.import_save()
         while True:
@@ -38,6 +39,9 @@ class CookieClicker(unittest.TestCase):
             if self.minutes == 5:
                 mid_pane.save_game()
                 self.minutes = 0
+            store.buy_products()
+            store.buy_store_upgrade()
+            mid_pane.close_notifications()
 
     def tearDown(self):
         self.driver.quit()
